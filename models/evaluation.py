@@ -16,6 +16,7 @@ if __name__ == "__main__":
     device = torch.device('cpu')
     model = Net()
     model.load_state_dict(torch.load(weights_file, map_location=device))
+    model.eval()
 
     transformation = transforms.Compose([transforms.ToTensor(),
                                          transforms.Normalize((0.1307,),
