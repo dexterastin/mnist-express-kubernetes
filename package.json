@@ -1,0 +1,21 @@
+{
+  "name": "mn",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "async": "^3.1.0",
+    "canvas-free-drawing": "^2.0.4",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "download": "^7.1.0",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "python-shell": "^1.0.8",
+    "request": "^2.88.0",
+    "sha1": "^1.1.1"
+  }
+}
