@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <title>Express</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #canvas-container {
+            display: block;
+            width: 100px;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>MNIST Express Kubernetes</h1>
+        <p>Write a number from 0 to 9 below!</p>
+        <div id="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+        <button id="eval" type="button" class="btn btn-default">Predict!</button>
+
+        <h2>Predict...</h2>
+        <h3 id="result"></h3>
+    </div>
+</div>
+<script>
+    let cfd;
+    window.onload = () => {
+        cfd = new CanvasFreeDrawing.default({
+            elementId: 'canvas',
+            width: 150,
+            height: 150,
+        });
+
+        // set properties
+        cfd.setLineWidth(4); // in px
+        cfd.setStrokeColor([255, 255, 255]); // in RGB
+        cfd.setBackground([0, 0, 0]); // in RGB
+
+        document.getElementById("eval").addEventListener("click", () => {
+            const imageUrl = document.getElementById("canvas").toDataURL("image/png");
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", encodeURI(`/eval`), true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    console.log(xhr.responseText["result"]);
+                    document.getElementById("result").innerText = xhr.responseText;
+                }
+            };
+            xhr.send(JSON.stringify({image: imageUrl}));
+        });
+    };
+</script>
+<script src="/javascripts/canvas-free-drawing.js"></script>
+
+</body>
+
+</html>
