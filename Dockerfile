@@ -17,5 +17,5 @@ RUN npm install
 RUN mkdir /workspace/images
 
 COPY . .
-EXPOSE 3000
+EXPOSE 8080
 ENTRYPOINT npm start
